@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+</head>
+
+<body>
+<!-- Title -->
+<h1 data-i18n="settings.title"></h1>
+
+<!-- Instruction -->
+<p data-i18n="settings.instruction"></p>
+
+<p><span data-i18n="settings.status">Status</span>: <span id="unifi_status" style="font-weight: bold;">Unknown</span>
+</p>
+<p><span data-i18n="settings.websocket.status">Realtime updates Status</span>: <span id="unifi_websocket_status"
+                                                                                     style="font-weight: bold;">Unknown</span>
+</p>
+<p><span data-i18n="settings.websocket.at">Last update at</span>: <span id="unifi_websocket_at"
+                                                                        style="font-weight: bold;">Unknown</span>
+</p>
+<!-- NVR -->
+<fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.nvr"></legend>
+
+    <!-- IP address -->
+    <div class="field row">
+        <label class="homey-form-label" for="txt_nvrip" data-i18n="settings.nvrip"></label>
+        <input class="homey-form-input" id="txt_nvrip" type="text" value=""/>
+    </div>
+
+    <!-- Port -->
+    <div class="field row">
+        <label class="homey-form-label" for="txt_nvrport" data-i18n="settings.nvrport"></label>
+        <input class="homey-form-input" id="txt_nvrport" type="text" value="12445"/>
+    </div>
+
+</fieldset>
+
+<!-- Credentials -->
+<fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend" data-i18n="settings.credentials"></legend>
+
+    <!-- apiToken -->
+    <div class="field row">
+        <label class="homey-form-label" for="txt_apiToken" data-i18n="settings.apiToken"></label>
+        <input class="homey-form-input" id="txt_apiToken" type="text" value=""/>
+    </div>
+
+</fieldset>
+
+<!-- Apply button -->
+<div class="field row">
+    <button id="btn_test" class="homey-button-primary-full" data-i18n="settings.testConnection"></button>
+    <br/>
+    <button id="btn_apply" class="homey-button-primary-full" data-i18n="settings.apply"></button>
+</div>
+
+<script type="text/javascript">
+    var txtNvrIp = document.getElementById('txt_nvrip');
+    var txtNvrPort = document.getElementById('txt_nvrport');
+    var txtApiToken = document.getElementById('txt_apiToken');
+    var btnApply = document.getElementById('btn_apply');
+    var btnTest = document.getElementById('btn_test');
+
+    function onHomeyReady(Homey) {
+        const readSettings = () => {
+            Homey.get('ufp:nvrip', (error, nvrip) => {
+                if (error) return Homey.alert(error);
+
+                if (nvrip) {
+                    txtNvrIp.value = nvrip;
+                } else {
+                    console.warn('[SETTINGS] Could not read UniFi Cloud Key IP address.');
+                }
+            });
+
+            Homey.get('ufp:nvrport', (error, nvrPort) => {
+                if (error) return Homey.alert(error);
+
+                if (nvrPort) {
+                    txtNvrPort.value = nvrPort;
+                } else {
+                    console.warn('[SETTINGS] Could not read UniFi Cloud Key Port.');
+                }
+            });
+
+            Homey.get('ufp:credentials', (error, credentials) => {
+                if (error) return Homey.alert(error);
+
+                if (credentials) {
+                  txtApiToken.value = credentials.apiToken;
+                } else {
+                    console.warn('[SETTINGS] Could not read credentials.');
+                }
+            });
+        };
+
+        const saveSettings = () => {
+            Homey.set('ufp:nvrip', txtNvrIp.value, (error, result) => {
+                if (error) return Homey.alert(error);
+                console.log('[SETTINGS] UniFi Cloud Key IP address saved.');
+            });
+
+            Homey.set('ufp:nvrport', txtNvrPort.value, (error, result) => {
+                if (error) return Homey.alert(error);
+                console.log('[SETTINGS] UniFi Cloud Key Port saved.');
+            });
+
+            const credentials = {
+                'apiToken': txtApiToken.value,
+            };
+
+            Homey.set('ufp:credentials', credentials, (error, result) => {
+                if (error) return Homey.alert(error);
+                console.log('[SETTINGS] credentials saved.');
+            });
+
+            Homey.alert(Homey.__('settings.saved'), 'info');
+        };
+
+        const testSettings = () => {
+            const settings = {
+                'host': txtNvrIp.value,
+                'port': txtNvrPort.value,
+                'apiToken': txtApiToken.value,
+            };
+
+            Homey.api("POST", "/test", settings, function (err, response) {
+                if (err) return Homey.alert(err);
+                if (response) {
+                    if (response.status === 'success') {
+                        Homey.alert(Homey.__('settings.test_status.success'), 'info');
+                    } else {
+                        Homey.alert(Homey.__('settings.test_status.failure'), 'error');
+                    }
+                }
+            });
+        };
+
+        btnTest.addEventListener('click', e => {
+            testSettings();
+        });
+
+        btnApply.addEventListener('click', e => {
+          saveSettings();
+        });
+
+        readSettings();
+
+        Homey.ready();
+
+        const updateStatusField = (err, data) => {
+            if (err) {
+                return err;
+            }
+            var color = 'darkred';
+            if (data === 'Connected') color = 'darkgreen';
+            if (data === 'Connecting...') color = 'orange';
+
+            var statusField = document.getElementById('unifi_status');
+            statusField.style.color = color;
+
+            var translationKey = 'status.connection.' + data;
+            var translation = Homey.__(translationKey);
+
+            if (translation === translationKey || translation === '' || typeof translation === 'undefined') {
+                statusField.innerHTML = data;
+            } else {
+                statusField.innerHTML = translation;
+            }
+        }
+
+        const updateWebsocketStatusField = (err, data) => {
+            if (err) {
+                return err;
+            }
+            var color = 'darkred';
+            if (data === 'Connected') color = 'darkgreen';
+            if (data === 'Connecting...') color = 'orange';
+
+            var statusField = document.getElementById('unifi_websocket_status');
+            statusField.style.color = color;
+
+            var translationKey = 'status.connection.' + data;
+            var translation = Homey.__(translationKey);
+
+            if (translation === translationKey || translation === '' || typeof translation === 'undefined') {
+                statusField.innerHTML = data;
+            } else {
+                statusField.innerHTML = translation;
+            }
+        }
+
+        const updateWebsocketAtField = (err, data) => {
+            if (err) {
+                return err;
+            }
+
+            document.getElementById('unifi_websocket_at').innerHTML = data;
+        }
+
+        Homey.on('com.ubnt.unifiprotect.status', (data) => {
+            updateStatusField(null, data);
+        });
+        Homey.on('com.ubnt.unifiprotect.websocket.status', (data) => {
+            updateWebsocketStatusField(null, data);
+        });
+        Homey.get('com.ubnt.unifiprotect.status', updateStatusField);
+        Homey.get('com.ubnt.unifiprotect.websocket.status', updateWebsocketStatusField);
+
+        Homey.api("GET", "/status", null, function (err, result) {
+            updateStatusField(null, result);
+            if (err) return Homey.alert(err);
+        });
+
+        Homey.api("GET", "/websocketstatus", null, function (err, result) {
+            updateWebsocketStatusField(null, result);
+            if (err) return Homey.alert(err);
+        });
+
+        Homey.api("GET", "/getLastWebsocketMessageTime", null, function (err, result) {
+            updateWebsocketAtField(null, result);
+            if (err) return Homey.alert(err);
+        });
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+{
+    "title": "UniFi Access",
+    "pair": {
+        "validate": {
+            "title": "Validating UniFi Cloud Key",
+            "instruction": "Please set the Cloud Key in Settings first."
+        },
+        "login": {
+            "title": "Log in"
+        }
+    },
+    "settings": {
+        "title": "UniFi Access Settings",
+        "instruction": "Log in with the credentials of the UniFi Access user.",
+        "nvr": "Server details",
+        "nvrip": "IP address",
+        "nvrport": "Port",
+        "credentials": "User credentials",
+        "apiToken": "API Token",
+        "apply": "Apply",
+        "saved": "Settings saved.",
+        "settings": "Settings",
+        "testConnection": "Test connection",
+        "test_status": {
+          "success": "Credentials are valid.",
+          "failure": "Credentials are invalid."
+        }
+    },
+    "events": {
+        "health": {
+            "unknown": "Unknown",
+            "green": "Healthy",
+            "orange": "Warning",
+            "red": "Critical"
+        }
+    }
+}

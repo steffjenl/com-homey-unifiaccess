@@ -1,0 +1,46 @@
+{
+  "id": "com.ubnt.unifiaccess",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Ubiquiti UniFi Access"
+  },
+  "description": {
+    "en": "Protect your home with UniFi Access devices."
+  },
+  "category": [
+    "security"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Stèphan Eizinga",
+    "email": "stephan@monkeysoft.nl"
+  },
+  "api": {
+    "getStatus": {
+      "method": "GET",
+      "path": "/status"
+    },
+    "getWebsocketStatus": {
+      "method": "GET",
+      "path": "/websocketstatus"
+    },
+    "testCredentials": {
+      "method": "POST",
+      "path": "/test"
+    },
+    "getLastWebsocketMessageTime": {
+      "method": "GET",
+      "path": "/getLastWebsocketMessageTime"
+    }
+  }
+}

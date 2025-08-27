@@ -1,0 +1,113 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.ubnt.unifiaccess",
+  "version": "1.0.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Ubiquiti UniFi Access"
+  },
+  "description": {
+    "en": "Protect your home with UniFi Access devices."
+  },
+  "category": [
+    "security"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Stèphan Eizinga",
+    "email": "stephan@monkeysoft.nl"
+  },
+  "api": {
+    "getStatus": {
+      "method": "GET",
+      "path": "/status"
+    },
+    "getWebsocketStatus": {
+      "method": "GET",
+      "path": "/websocketstatus"
+    },
+    "testCredentials": {
+      "method": "POST",
+      "path": "/test"
+    },
+    "getLastWebsocketMessageTime": {
+      "method": "GET",
+      "path": "/getLastWebsocketMessageTime"
+    }
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Access Hub"
+      },
+      "class": "lock",
+      "capabilities": [],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/access-hub/assets/images/small.png",
+        "large": "/drivers/access-hub/assets/images/large.png",
+        "xlarge": "/drivers/access-hub/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "access-hub"
+    },
+    {
+      "name": {
+        "en": "Access Reader"
+      },
+      "class": "doorbell",
+      "capabilities": [],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/access-reader/assets/images/small.png",
+        "large": "/drivers/access-reader/assets/images/large.png",
+        "xlarge": "/drivers/access-reader/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "access-reader"
+    }
+  ]
+}
