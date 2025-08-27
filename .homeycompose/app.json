@@ -25,6 +25,26 @@
     "name": "Stèphan Eizinga",
     "email": "stephan@monkeysoft.nl"
   },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Stèphan Eizinga",
+        "email": "stephan@monkeysoft.nl"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "steffjenl"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/steffjenl/com-homey-unifiaccess/issues"
+  },
+  "support": "https://community.homey.app/t/app-pro-ubiquiti-unifi-protect/42966",
+  "homeyCommunityTopicId": 42966,
   "api": {
     "getStatus": {
       "method": "GET",
