@@ -2,13 +2,13 @@
 
 const Homey = require('homey');
 
-module.exports = class HubDriver extends Homey.Driver {
+module.exports = class MyDriver extends Homey.Driver {
 
     /**
      * onInit is called when the driver is initialized.
      */
     async onInit() {
-        this.log('HubDriver has been initialized');
+        this.log('MyDriver has been initialized');
     }
 
     /**
@@ -17,13 +17,13 @@ module.exports = class HubDriver extends Homey.Driver {
      * This should return an array with the data of devices that are available for pairing.
      */
     async onPairListDevices() {
-        const hubs = await this.homey.app.api.getHubs();
-        return hubs.map(hub => ({
-            name: hub.name,
-            data: {id: String(hub.id)},
+        const doors = await this.homey.app.api.getDoors();
+        return doors.map(door => ({
+            name: door.full_name,
+            data: {id: String(door.id)},
             store: {
-                location: hub.location_id,
-                type: hub.type,
+                floor_id: door.floor_id,
+                type: door.type,
             },
         }));
     }
@@ -31,9 +31,12 @@ module.exports = class HubDriver extends Homey.Driver {
     onParseWebsocketMessage(device, payload) {
         this.log('onParseWebsocketMessage', device.getName());
         if (Object.prototype.hasOwnProperty.call(device, '_events')) {
-            if (payload.hasOwnProperty('location_states') && Array.isArray(payload.location_states) && payload.location_states.length > 0) {
-                if (payload.location_states[0].hasOwnProperty('lock')) {
-                    device.onLocationLockChange(payload.location_states[0].lock === 'locked');
+            if (payload.hasOwnProperty('state')) {
+                if (payload.state.hasOwnProperty('lock')) {
+                    device.onLockChange(payload.state.lock === 'locked');
+                }
+                if (payload.state.hasOwnProperty('dps')) {
+                    device.onDoorChange(payload.state.dps === 'open');
                 }
             }
         }

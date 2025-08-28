@@ -68,13 +68,45 @@
   "drivers": [
     {
       "name": {
-        "en": "Access Hub"
+        "en": "Access Door"
       },
-      "class": "lock",
+      "class": "garagedoor",
       "capabilities": [
         "alarm_contact",
         "locked"
       ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/access-door/assets/images/small.png",
+        "large": "/drivers/access-door/assets/images/large.png",
+        "xlarge": "/drivers/access-door/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "access-door"
+    },
+    {
+      "name": {
+        "en": "Access Hub"
+      },
+      "class": "lock",
+      "capabilities": [],
       "platforms": [
         "local"
       ],
@@ -140,6 +172,106 @@
       "id": "access-reader"
     }
   ],
+  "flow": {
+    "actions": [
+      {
+        "id": "ufv_set_reader_access_method_wave",
+        "title": {
+          "en": "Set Reader Access Method Wave"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Wave [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_nfc",
+        "title": {
+          "en": "Set Reader Access Method NFC"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method NFC [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_bt-tap",
+        "title": {
+          "en": "Set Reader Access Method Mobile Tap"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Mobile Tap [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_bt-button",
+        "title": {
+          "en": "Set Reader Access Method Mobile Button"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Mobile Button [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "capabilities": {
     "reader_mobile-button_enabled": {
       "type": "boolean",

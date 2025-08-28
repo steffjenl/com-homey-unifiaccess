@@ -1,0 +1,80 @@
+{
+  "actions": [
+    {
+      "id": "ufv_set_reader_access_method_wave",
+      "title": {
+        "en": "Set Reader Access Method Wave"
+      },
+      "titleFormatted": {
+        "en": "Set Reader Access Method Wave [[enabled]]"
+      },
+      "args": [
+        {
+          "type": "checkbox",
+          "name": "enabled",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ufv_set_reader_access_method_nfc",
+      "title": {
+        "en": "Set Reader Access Method NFC"
+      },
+      "titleFormatted": {
+        "en": "Set Reader Access Method NFC [[enabled]]"
+      },
+      "args": [
+        {
+          "type": "checkbox",
+          "name": "enabled",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ufv_set_reader_access_method_bt-tap",
+      "title": {
+        "en": "Set Reader Access Method Mobile Tap"
+      },
+      "titleFormatted": {
+        "en": "Set Reader Access Method Mobile Tap [[enabled]]"
+      },
+      "args": [
+        {
+          "type": "checkbox",
+          "name": "enabled",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ufv_set_reader_access_method_bt-button",
+      "title": {
+        "en": "Set Reader Access Method Mobile Button"
+      },
+      "titleFormatted": {
+        "en": "Set Reader Access Method Mobile Button [[enabled]]"
+      },
+      "args": [
+        {
+          "type": "checkbox",
+          "name": "enabled",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld"
+          }
+        }
+      ]
+    }
+  ]
+}

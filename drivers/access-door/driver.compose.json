@@ -1,9 +1,11 @@
 {
   "name": {
-    "en": "Access Hub"
+    "en": "Access Door"
   },
-  "class": "lock",
+  "class": "garagedoor",
   "capabilities": [
+    "alarm_contact",
+    "locked"
   ],
   "platforms": [
     "local"
