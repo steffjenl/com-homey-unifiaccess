@@ -2,7 +2,7 @@
   "name": {
     "en": "Access Door"
   },
-  "class": "garagedoor",
+  "class": "lock",
   "capabilities": [
     "alarm_contact",
     "locked"
