@@ -43,6 +43,19 @@ module.exports = class UnifiAccess extends Homey.App {
             }
             return Promise.resolve(true);
         });
+        const _setDoorTempLockingRule = this.homey.flow.getActionCard('ufv_set_reader_door_locking_rule');
+        _setDoorTempLockingRule.registerRunListener(async (args, state) => {
+            if (typeof args.device.getData().id !== 'undefined') {
+                return this.homey.app.api.setTempDoorLockingRule(args.device.getData().id, args.type, args.interval);
+            }
+            return Promise.resolve(true);
+        });
+
+        this.homey.settings.on('set', key => {
+            if (key === 'ufp:credentials' || key === 'ufp:nvrip' || key === 'ufp:nvrport') {
+                this.loginToAccess();
+            }
+        });
     }
 
     async loginToAccess() {

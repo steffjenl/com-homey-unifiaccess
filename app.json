@@ -65,6 +65,184 @@
       "path": "/getLastWebsocketMessageTime"
     }
   },
+  "flow": {
+    "actions": [
+      {
+        "id": "ufv_set_reader_door_locking_rule",
+        "title": {
+          "en": "Set Door Temporary Locking Rule"
+        },
+        "titleFormatted": {
+          "en": "Set Door Temporary Locking Rule [[type]] for [[interval]] minutes"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-door"
+          },
+          {
+            "type": "dropdown",
+            "name": "type",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            },
+            "values": [
+              {
+                "id": "keep_lock",
+                "title": {
+                  "en": "Keep locked"
+                }
+              },
+              {
+                "id": "keep_unlock",
+                "title": {
+                  "en": "Keep unlocked"
+                }
+              },
+              {
+                "id": "reset",
+                "title": {
+                  "en": "Reset"
+                }
+              },
+              {
+                "id": "lock_early",
+                "title": {
+                  "en": "Lock early"
+                }
+              },
+              {
+                "id": "lock_now",
+                "title": {
+                  "en": "Lock now"
+                }
+              },
+              {
+                "id": "custom",
+                "title": {
+                  "en": "Custom"
+                }
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "name": "interval",
+            "title": {
+              "en": "Duration (minutes)",
+              "nl": "Duur (minuten)"
+            },
+            "min": 1,
+            "max": 1440,
+            "default": 5,
+            "visibleIf": {
+              "type": [
+                "custom"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_wave",
+        "title": {
+          "en": "Set Reader Access Method Wave"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Wave [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_nfc",
+        "title": {
+          "en": "Set Reader Access Method NFC"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method NFC [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_bt-tap",
+        "title": {
+          "en": "Set Reader Access Method Mobile Tap"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Mobile Tap [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_access_method_bt-button",
+        "title": {
+          "en": "Set Reader Access Method Mobile Button"
+        },
+        "titleFormatted": {
+          "en": "Set Reader Access Method Mobile Button [[enabled]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-reader"
+          },
+          {
+            "type": "checkbox",
+            "name": "enabled",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "name": {
@@ -172,106 +350,6 @@
       "id": "access-reader"
     }
   ],
-  "flow": {
-    "actions": [
-      {
-        "id": "ufv_set_reader_access_method_wave",
-        "title": {
-          "en": "Set Reader Access Method Wave"
-        },
-        "titleFormatted": {
-          "en": "Set Reader Access Method Wave [[enabled]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=access-reader"
-          },
-          {
-            "type": "checkbox",
-            "name": "enabled",
-            "title": {
-              "en": "Enabled",
-              "nl": "Ingeschakeld"
-            }
-          }
-        ]
-      },
-      {
-        "id": "ufv_set_reader_access_method_nfc",
-        "title": {
-          "en": "Set Reader Access Method NFC"
-        },
-        "titleFormatted": {
-          "en": "Set Reader Access Method NFC [[enabled]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=access-reader"
-          },
-          {
-            "type": "checkbox",
-            "name": "enabled",
-            "title": {
-              "en": "Enabled",
-              "nl": "Ingeschakeld"
-            }
-          }
-        ]
-      },
-      {
-        "id": "ufv_set_reader_access_method_bt-tap",
-        "title": {
-          "en": "Set Reader Access Method Mobile Tap"
-        },
-        "titleFormatted": {
-          "en": "Set Reader Access Method Mobile Tap [[enabled]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=access-reader"
-          },
-          {
-            "type": "checkbox",
-            "name": "enabled",
-            "title": {
-              "en": "Enabled",
-              "nl": "Ingeschakeld"
-            }
-          }
-        ]
-      },
-      {
-        "id": "ufv_set_reader_access_method_bt-button",
-        "title": {
-          "en": "Set Reader Access Method Mobile Button"
-        },
-        "titleFormatted": {
-          "en": "Set Reader Access Method Mobile Button [[enabled]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=access-reader"
-          },
-          {
-            "type": "checkbox",
-            "name": "enabled",
-            "title": {
-              "en": "Enabled",
-              "nl": "Ingeschakeld"
-            }
-          }
-        ]
-      }
-    ]
-  },
   "capabilities": {
     "reader_mobile-button_enabled": {
       "type": "boolean",
