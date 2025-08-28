@@ -20,7 +20,7 @@ module.exports = class UnifiAccess extends Homey.App {
     // Validate NVR IP address
     const nvrip = this.homey.settings.get('ufp:nvrip');
     if (!nvrip) {
-      this.debug('NVR IP address not set.');
+      this.log('NVR IP address not set.');
       return;
     }
 
@@ -30,7 +30,7 @@ module.exports = class UnifiAccess extends Homey.App {
     // Validate NVR credentials
     const credentials = this.homey.settings.get('ufp:credentials');
     if (!credentials) {
-      this.debug('Credentials not set.');
+      this.log('Credentials not set.');
       return;
     }
 
