@@ -9,6 +9,44 @@ module.exports = class Reader extends Homey.Device {
    */
   async onInit() {
     this.log('Reader has been initialized');
+      this.registerCapabilityListener('reader_nfc_enabled', async (value) => {
+          console.log('Setting NFC to', value);
+          return this.homey.app.api.setReaderNFC(this.getData().id, value);
+      });
+      this.registerCapabilityListener('reader_wave_enabled', async (value) => {
+          return this.homey.app.api.setReaderWave(this.getData().id, value);
+      });
+      this.registerCapabilityListener('reader_touch-pass_enabled', async (value) => {
+          return this.homey.app.api.setReaderTouchPass(this.getData().id, value);
+      });
+      this.registerCapabilityListener('reader_mobile-button_enabled', async (value) => {
+          return this.homey.app.api.setReaderMobileButton(this.getData().id, value);
+      });
+      this.registerCapabilityListener('reader_mobile-tap_enabled', async (value) => {
+          return this.homey.app.api.setReaderMobileTap(this.getData().id, value);
+      });
+      //
+      this.homey.app.api.getDevice(this.getData().id).then(device => {
+            if (device) {
+                if (typeof device.data.access_methods !== 'undefined') {
+                    if (typeof device.data.access_methods.nfc !== 'undefined') {
+                        this.setCapabilityValue('reader_nfc_enabled', device.data.access_methods.nfc.enabled === 'yes');
+                    }
+                    if (typeof device.data.access_methods.wave !== 'undefined') {
+                        this.setCapabilityValue('reader_wave_enabled', device.data.access_methods.wave.enabled === 'yes');
+                    }
+                    if (typeof device.data.access_methods.touch_pass !== 'undefined') {
+                        this.setCapabilityValue('reader_touch-pass_enabled', device.data.access_methods.touch_pass.enabled === 'yes');
+                    }
+                    if (typeof device.data.access_methods.bt_button !== 'undefined') {
+                        this.setCapabilityValue('reader_mobile-button_enabled', device.data.access_methods.bt_button.enabled === 'yes');
+                    }
+                    if (typeof device.data.access_methods.bt_tap !== 'undefined') {
+                        this.setCapabilityValue('reader_mobile-tap_enabled', device.data.access_methods.bt_tap.enabled === 'yes');
+                    }
+                }
+            }
+      });
   }
 
   /**

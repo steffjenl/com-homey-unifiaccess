@@ -3,7 +3,13 @@
     "en": "Access Reader"
   },
   "class": "doorbell",
-  "capabilities": [],
+  "capabilities": [
+    "reader_nfc_enabled",
+    "reader_wave_enabled",
+    "reader_touch-pass_enabled",
+    "reader_mobile-tap_enabled",
+    "reader_mobile-button_enabled"
+  ],
   "platforms": [
     "local"
   ],

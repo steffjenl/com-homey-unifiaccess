@@ -3,7 +3,10 @@
     "en": "Access Hub"
   },
   "class": "lock",
-  "capabilities": [],
+  "capabilities": [
+    "alarm_contact",
+    "locked"
+  ],
   "platforms": [
     "local"
   ],
