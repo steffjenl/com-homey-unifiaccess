@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Access Door"
+    "en": "Lock"
   },
   "class": "lock",
   "capabilities": [

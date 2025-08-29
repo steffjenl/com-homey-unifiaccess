@@ -1,9 +1,10 @@
 {
   "name": {
-    "en": "Hub"
+    "en": "Garage door"
   },
-  "class": "lock",
+  "class": "garagedoor",
   "capabilities": [
+    "garagedoor_closed"
   ],
   "platforms": [
     "local"

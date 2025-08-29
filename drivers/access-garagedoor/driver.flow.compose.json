@@ -1,0 +1,45 @@
+{
+  "actions": [
+    {
+      "id": "ufv_set_reader_garagedoor_locking_rule",
+      "title": {
+        "en": "Set Door Temporary Locking Rule"
+      },
+      "titleFormatted": {
+        "en": "Set Door Temporary Locking Rule [[type]] for [[interval]] minutes"
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "type",
+          "title": {
+            "en": "Enabled",
+            "nl": "Ingeschakeld"
+          },
+          "values": [
+            { "id": "keep_lock", "title": { "en": "Keep locked" } },
+            { "id": "keep_unlock", "title": { "en": "Keep unlocked" } },
+            { "id": "reset", "title": { "en": "Reset" } },
+            { "id": "lock_early", "title": { "en": "Lock early" } },
+            { "id": "lock_now", "title": { "en": "Lock now" } },
+            { "id": "custom", "title": { "en": "Custom" } }
+          ]
+        },
+        {
+          "type": "number",
+          "name": "interval",
+          "title": {
+            "en": "Duration (minutes)",
+            "nl": "Duur (minuten)"
+          },
+          "min": 1,
+          "max": 1440,
+          "default": 5,
+          "visibleIf": {
+            "type": ["custom"]
+          }
+        }
+      ]
+    }
+  ]
+}

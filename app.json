@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/steffjenl/com-homey-unifiaccess/issues"
   },
-  "support": "https://community.homey.app/t/app-pro-ubiquiti-unifi-protect/42966",
+  "support": "https://monkeysoft.nl/homey-integrations-support/",
   "homeyCommunityTopicId": 42966,
   "api": {
     "getStatus": {
@@ -80,6 +80,84 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=access-door"
+          },
+          {
+            "type": "dropdown",
+            "name": "type",
+            "title": {
+              "en": "Enabled",
+              "nl": "Ingeschakeld"
+            },
+            "values": [
+              {
+                "id": "keep_lock",
+                "title": {
+                  "en": "Keep locked"
+                }
+              },
+              {
+                "id": "keep_unlock",
+                "title": {
+                  "en": "Keep unlocked"
+                }
+              },
+              {
+                "id": "reset",
+                "title": {
+                  "en": "Reset"
+                }
+              },
+              {
+                "id": "lock_early",
+                "title": {
+                  "en": "Lock early"
+                }
+              },
+              {
+                "id": "lock_now",
+                "title": {
+                  "en": "Lock now"
+                }
+              },
+              {
+                "id": "custom",
+                "title": {
+                  "en": "Custom"
+                }
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "name": "interval",
+            "title": {
+              "en": "Duration (minutes)",
+              "nl": "Duur (minuten)"
+            },
+            "min": 1,
+            "max": 1440,
+            "default": 5,
+            "visibleIf": {
+              "type": [
+                "custom"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ufv_set_reader_garagedoor_locking_rule",
+        "title": {
+          "en": "Set Door Temporary Locking Rule"
+        },
+        "titleFormatted": {
+          "en": "Set Door Temporary Locking Rule [[type]] for [[interval]] minutes"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=access-garagedoor"
           },
           {
             "type": "dropdown",
@@ -246,7 +324,7 @@
   "drivers": [
     {
       "name": {
-        "en": "Access Door"
+        "en": "Lock"
       },
       "class": "lock",
       "capabilities": [
@@ -281,7 +359,41 @@
     },
     {
       "name": {
-        "en": "Access Hub"
+        "en": "Garage door"
+      },
+      "class": "garagedoor",
+      "capabilities": [
+        "garagedoor_closed"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/access-garagedoor/assets/images/small.png",
+        "large": "/drivers/access-garagedoor/assets/images/large.png",
+        "xlarge": "/drivers/access-garagedoor/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "access-garagedoor"
+    },
+    {
+      "name": {
+        "en": "Hub"
       },
       "class": "lock",
       "capabilities": [],
@@ -313,7 +425,7 @@
     },
     {
       "name": {
-        "en": "Access Reader"
+        "en": "Reader"
       },
       "class": "doorbell",
       "capabilities": [
