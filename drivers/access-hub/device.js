@@ -47,7 +47,7 @@ module.exports = class Hub extends Homey.Device {
     }
 
     onLocationLockChange(value) {
-        this.setCapabilityValue('locked', value);
+        // this.setCapabilityValue('locked', value);
     }
 
 };
