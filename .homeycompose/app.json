@@ -1,6 +1,6 @@
 {
   "id": "com.ubnt.unifiaccess",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=12.4.0",
   "brandColor": "#159EDA",
   "sdk": 3,
